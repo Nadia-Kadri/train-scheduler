@@ -50,23 +50,40 @@ database.ref().on("child_added", function(snapshot) {
     
     if(timeDiff > 0) {
         let timeRemainder = timeDiff % frequency;
-        let minutesAway = frequency - timeRemainder;
 
-        let nextTrain = moment().add(minutesAway, "minutes");
-        let nextTrainConverted = moment(nextTrain).format("hh:mm a")
-        console.log(`Next train: ${nextTrainConverted}`)
-        console.log("--------------------------")
-
-        var newRow = $("<tr>").append(
-            $("<td>").text(trainName),
-            $("<td>").text(destination),
-            $("<td>").text(firstTimeConverted),
-            $("<td>").text(frequency),
-            $("<td>").text(nextTrainConverted),
-            $("<td>").text(minutesAway)
-          );
+        if (timeRemainder === 0) {
+            console.log("Train is in station")
+            console.log("--------------------------")
     
-        $("#train-schedule").append(newRow);
+            var newRow = $("<tr>").append(
+                $("<td>").text(trainName),
+                $("<td>").text(destination),
+                $("<td>").text(firstTimeConverted),
+                $("<td>").text(frequency),
+                $("<td>").text("BOARDING NOW"),
+                $("<td>").text("BOARDING NOW")
+              );
+        
+            $("#train-schedule").append(newRow);
+        } else {
+            let minutesAway = frequency - timeRemainder;
+
+            let nextTrain = moment().add(minutesAway, "minutes");
+            let nextTrainConverted = moment(nextTrain).format("hh:mm a")
+            console.log(`Next train: ${nextTrainConverted}`)
+            console.log("--------------------------")
+
+            var newRow = $("<tr>").append(
+                $("<td>").text(trainName),
+                $("<td>").text(destination),
+                $("<td>").text(firstTimeConverted),
+                $("<td>").text(frequency),
+                $("<td>").text(nextTrainConverted),
+                $("<td>").text(minutesAway)
+            );
+        
+            $("#train-schedule").append(newRow);
+        }
     } else if (timeDiff < 0) {
         let nextTrainConverted = firstTimeConverted
         console.log(`Next train: ${nextTrainConverted}`)
