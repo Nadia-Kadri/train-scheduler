@@ -1,7 +1,7 @@
 var firebaseConfig = {
     apiKey: "AIzaSyAX3NBJngTZnGnXCWRprJPr4PEbuN_IA2o",
     databaseURL: "https://train-schedule-1f34e.firebaseio.com",
-  };
+};
 
 firebase.initializeApp(firebaseConfig);
 
@@ -19,7 +19,7 @@ $("#run-search").on("click", function (event) {
     database.ref().push({
         name: trainName,
         destination: destination,
-        first: firstTrainTime,
+        firstTime: firstTrainTime,
         frequency: frequency
     });
 
@@ -28,4 +28,28 @@ $("#run-search").on("click", function (event) {
     $("#first-time-search").val("")
     $("#frequency-search").val("")
 
+});
+
+database.ref().on("child_added", function(snapshot) {
+    console.log(snapshot.val());
+
+    let trainName = snapshot.val().name;
+    let destination = snapshot.val().destination;
+    let firstTrainTime = snapshot.val().firstTime;
+    let frequency = snapshot.val().frequency;
+
+    console.log(trainName)
+    console.log(destination)
+    console.log(firstTrainTime)
+    console.log(frequency)
+
+    var newRow = $("<tr>").append(
+        $("<td>").text(trainName),
+        $("<td>").text(destination),
+        $("<td>").text(frequency),
+        $("<td>").text(""),
+        $("<td>").text("")
+      );
+
+    $("#train-schedule").append(newRow);
 });
