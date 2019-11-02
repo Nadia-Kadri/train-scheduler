@@ -7,6 +7,8 @@ firebase.initializeApp(firebaseConfig);
 
 var database = firebase.database();
 
+// sortTable()
+
 $("#run-search").on("click", function (event) {
 
     event.preventDefault();
@@ -138,5 +140,49 @@ database.ref().on("child_added", function(snapshot) {
         $("#train-schedule").append(newRow);
     }
 });
+
+
+
+
+// function sortTable() {
+//     var table, rows, switching, i, x, y, shouldSwitch;
+//     table = document.getElementById("train-schedule-table");
+//     switching = true;
+//     console.log(table.rows)
+//     console.log(table)
+//     /*Make a loop that will continue until
+//     no switching has been done:*/
+//     while (switching) {
+//       //start by saying: no switching is done:
+//       switching = false;
+//       rows = table.rows;
+//       console.log(rows)
+//       console.log(table.rows.length)
+//       /*Loop through all table rows (except the
+//       first, which contains table headers):*/
+//       for (i = 1; i < (rows.length - 1); i++) {
+//         //start by saying there should be no switching:
+//         console.log(i)
+//         shouldSwitch = false;
+//         /*Get the two elements you want to compare,
+//         one from current row and one from the next:*/
+//         x = rows[i].getElementsByTagName("TD")[0];
+//         console.log(x)
+//         y = rows[i + 1].document.getElementsByTagName("TD")[5];
+//         //check if the two rows should switch place:
+//         if (Number(x.innerHTML) > Number(y.innerHTML)) {
+//           //if so, mark as a switch and break the loop:
+//           shouldSwitch = true;
+//           break;
+//         }
+//       }
+//       if (shouldSwitch) {
+//         /*If a switch has been marked, make the switch
+//         and mark that a switch has been done:*/
+//         rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+//         switching = true;
+//       }
+//     }
+//   }
 
 
