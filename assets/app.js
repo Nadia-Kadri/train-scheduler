@@ -16,6 +16,26 @@ $("#run-search").on("click", function (event) {
     let firstTime = $("#first-time-search").val().trim();
     let frequency = $("#frequency-search").val().trim();
 
+    if (trainName === "" || destination === "" || firstTime === "" || frequency === "") {
+        $("#error").html("Please complete all fields")
+        return;
+    }
+
+    if ((moment(firstTime, "HH:mm", true).format() === "Invalid date") && (isNaN(frequency))) {
+        $("#error").html("Please enter date in specified format<br>Please enter a number in frequency field")
+        return;
+    }
+
+    if (moment(firstTime, "HH:mm", true).format() === "Invalid date") {
+        $("#error").html("Please enter date in specified format")
+        return;
+    }
+
+    if (isNaN(frequency)) {
+        $("#error").html("Please enter a number in frequency field")
+        return;
+    }
+
     database.ref().push({
         name: trainName,
         destination: destination,
@@ -27,6 +47,7 @@ $("#run-search").on("click", function (event) {
     $("#destination-search").val("")
     $("#first-time-search").val("")
     $("#frequency-search").val("")
+    $("#error").html("")
 
 });
 
