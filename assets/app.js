@@ -24,17 +24,27 @@ $("#run-search").on("click", function (event) {
     }
 
     if ((moment(firstTime, "HH:mm", true).format() === "Invalid date") && (isNaN(frequency))) {
-        $("#error").html("Please enter date in specified format<br>Please enter a number in frequency field")
+        $("#error").html("Please enter time in specified format<br>Please enter a valid number in the frequency field")
+        return;
+    }
+
+    if ((moment(firstTime, "HH:mm", true).format() === "Invalid date") && (frequency > 1440 || frequency <= 0)) {
+        $("#error").html("Please enter time in specified format<br>Please enter a valid number in the frequency field")
         return;
     }
 
     if (moment(firstTime, "HH:mm", true).format() === "Invalid date") {
-        $("#error").html("Please enter date in specified format")
+        $("#error").html("Please enter time in specified format")
         return;
     }
 
     if (isNaN(frequency)) {
-        $("#error").html("Please enter a number in frequency field")
+        $("#error").html("Please enter a valid number in the frequency field")
+        return;
+    }
+
+    if (frequency > 1440 || frequency <= 0) {
+        $("#error").html("Please enter a valid number in the frequency field")
         return;
     }
 
